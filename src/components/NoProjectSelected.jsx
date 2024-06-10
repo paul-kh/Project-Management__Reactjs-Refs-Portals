@@ -1,5 +1,6 @@
 // This component is a fallback to be shown in the UI in case no project is selected
 import noProjectImage from "../assets/no-projects.png";
+import Button from "./Button";
 
 export default function NoProjectSelected() {
   return (
@@ -16,7 +17,7 @@ export default function NoProjectSelected() {
         Select a project or get started with a new one
       </p>
       <p className="mt-8">
-        <button>Create new project</button>
+        <Button>Create new project</Button>
       </p>
     </div>
   );
