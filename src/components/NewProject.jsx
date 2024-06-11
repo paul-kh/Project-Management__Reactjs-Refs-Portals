@@ -17,6 +17,16 @@ export default function NewProject({ onAddProject }) {
       dueDate: enteredtDueDate,
     };
 
+    // Validating user input
+    if (
+      enteredTitle.trim() === "" ||
+      enteredDescription.trim() === "" ||
+      enteredtDueDate.trim() === ""
+    ) {
+      // Show error Modal
+      return;
+    }
+
     // Sending project data to be executed in
     // the function 'handleAddProject()' passed from
     // the <App> componetnt as props 'onAddProject'
