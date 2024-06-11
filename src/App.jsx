@@ -16,6 +16,7 @@ function App() {
     projects: [],
   });
 
+  // To change state when user clicks 'Create new project' button
   function handleStartAddProject() {
     setProjectsState((prevState) => {
       return {
@@ -25,10 +26,27 @@ function App() {
     });
   }
 
+  // To collect user's input as a new project data
+  // when user clicks 'Save' button while creating new project
+  // then update the state with new project
+  function handleAddProject(projectData) {
+    setProjectsState((prevState) => {
+      const newProject = {
+        ...projectData,
+        id: Math.random(),
+      };
+      return {
+        ...prevState,
+        projects: [...prevState.projects, newProject],
+      };
+    });
+  }
+
   let content;
+  console.log(projectsState);
 
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject />;
+    content = <NewProject onAddProject={handleAddProject} />;
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
