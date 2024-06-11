@@ -38,12 +38,12 @@ function App() {
       return {
         ...prevState,
         projects: [...prevState.projects, newProject],
+        selectedProjectId: undefined, // closing new project window once user saved project
       };
     });
   }
 
   let content;
-  console.log(projectsState);
 
   if (projectsState.selectedProjectId === null) {
     content = <NewProject onAddProject={handleAddProject} />;
@@ -52,7 +52,10 @@ function App() {
   }
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar onStartAddProject={handleStartAddProject} />
+      <ProjectsSidebar
+        onStartAddProject={handleStartAddProject}
+        projects={projectsState.projects}
+      />
       {content}
     </main>
   );
