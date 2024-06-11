@@ -32,6 +32,21 @@ function App() {
     });
   }
 
+  // The function for deleting an existing project.
+  // We use array.filter() method to create a new array
+  // that filters out the deleted project
+  function handleDeleteProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id !== prevState.selectedProjectId
+        ),
+      };
+    });
+  }
+
   // The function for changing state with 'selectedProjectId' set to 'null'
   // when user clicks 'Create new project' button to start adding new project.
   function handleStartAddProject() {
@@ -81,7 +96,12 @@ function App() {
   );
 
   // Render the selected project if user clicked on an existing project (projectId !== undefined or null)
-  let content = <SelectedProject project={selectedProject} />;
+  let content = (
+    <SelectedProject
+      project={selectedProject}
+      onDeleteProject={handleDeleteProject}
+    />
+  );
 
   // Render <NewProject> component if user click 'Add new project' button
   if (projectsState.selectedProjectId === null) {
