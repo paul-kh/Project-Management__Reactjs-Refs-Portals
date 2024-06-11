@@ -43,10 +43,27 @@ function App() {
     });
   }
 
+  // We revert the selectedProjectId property of
+  // the state back to 'undefined' when user clicks
+  // 'Cancel' while adding new project.
+  function handleCancelAddProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+      };
+    });
+  }
+
   let content;
 
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject onAddProject={handleAddProject} />;
+    content = (
+      <NewProject
+        onAddProject={handleCancelAddProject}
+        onCancelProject={handleCancelProject}
+      />
+    );
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }

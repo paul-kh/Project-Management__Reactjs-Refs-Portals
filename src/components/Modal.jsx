@@ -1,4 +1,4 @@
-// Modal as an open() method that can be called by outside components
+// Modal has an open() method that can be called by outside components
 // to open the modal. To acheive this, we need 'useRef', 'forwardRef()',
 // 'createPortal()', 'useImperativeHandle()'
 import { useRef, forwardRef, useImperativeHandle } from "react";
