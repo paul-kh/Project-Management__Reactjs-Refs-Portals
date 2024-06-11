@@ -60,8 +60,8 @@ function App() {
   if (projectsState.selectedProjectId === null) {
     content = (
       <NewProject
-        onAddProject={handleCancelAddProject}
-        onCancelProject={handleCancelProject}
+        onAddProject={handleAddProject}
+        onCancelProject={handleCancelAddProject}
       />
     );
   } else if (projectsState.selectedProjectId === undefined) {
