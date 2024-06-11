@@ -3,6 +3,7 @@ import NoProjectSelected from "./components/NoProjectSelected";
 import ProjectsSidebar from "./components/ProjectsSidebar";
 
 import { useState } from "react";
+import SelectedProject from "./components/SelectedProject";
 
 function App() {
   /************************************************************************************ 
@@ -11,24 +12,40 @@ function App() {
     - projectsState.selectedProjectId = undefined ==> if no project is selected
     - projectsState.selectedProjectId = null      ==> if user started adding new project 
   *************************************************************************************/
+
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
   });
 
-  // To change state when user clicks 'Create new project' button
-  function handleStartAddProject() {
+  // Function for updating state with 'selectedProjectId' set to the id
+  // of the project that user selected/clicked on the <ProjectSidebar>.
+  // We pass the function as value to <ProjectSidebar> component which
+  // pass on the function to handle 'onClick' event when user clicks
+  // on a project button.
+  function handleSelectProject(projectId) {
     setProjectsState((prevState) => {
       return {
         ...prevState,
-        selectedProjectId: null,
+        selectedProjectId: projectId,
       };
     });
   }
 
-  // To collect user's input as a new project data
+  // The function for changing state with 'selectedProjectId' set to 'null'
+  // when user clicks 'Create new project' button to start adding new project.
+  function handleStartAddProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: null, // 'null' is rendering <NewProject> component
+      };
+    });
+  }
+
+  // The function for collecting user's input as a new project data
   // when user clicks 'Save' button while creating new project
-  // then update the state with new project
+  // then update the state with new project and 'selectedProjectId' set to 'undefined'
   function handleAddProject(projectData) {
     setProjectsState((prevState) => {
       const newProject = {
@@ -38,7 +55,7 @@ function App() {
       return {
         ...prevState,
         projects: [...prevState.projects, newProject],
-        selectedProjectId: undefined, // closing new project window once user saved project
+        selectedProjectId: undefined, // 'undefined' is for rendering <NoProjectSelected> component
       };
     });
   }
@@ -55,8 +72,18 @@ function App() {
     });
   }
 
-  let content;
+  // Inside the array 'projects' as the property of the 'projectsState' object,
+  // we are finding the project that has its id matching the value of
+  // the selectedProjectId property of the 'projectsState' object.
+  // We use the array.find() which is the JS built-in method.
+  const selectedProject = projectsState.projects.find(
+    (project) => project.id === projectsState.selectedProjectId
+  );
 
+  // Render the selected project if user clicked on an existing project (projectId !== undefined or null)
+  let content = <SelectedProject project={selectedProject} />;
+
+  // Render <NewProject> component if user click 'Add new project' button
   if (projectsState.selectedProjectId === null) {
     content = (
       <NewProject
@@ -64,6 +91,8 @@ function App() {
         onCancelProject={handleCancelAddProject}
       />
     );
+
+    // Render <NoProjectSelected> component if no project is selected (id='undefined)
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
@@ -71,6 +100,7 @@ function App() {
     <main className="h-screen my-8 flex gap-8">
       <ProjectsSidebar
         onStartAddProject={handleStartAddProject}
+        onSelectProject={handleSelectProject}
         projects={projectsState.projects}
       />
       {content}
