@@ -31,7 +31,30 @@ function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
+    tasks: [],
   });
+
+  // The function to add tasks to a selected project
+  function handleAddTask(tasksData) {
+    if (tasksData.text.trim() === "") {
+      return;
+    }
+
+    setProjectsState((prevState) => {
+      const newTask = {
+        ...tasksData,
+        id: Math.random(),
+        projectId: prevState.selectedProjectId,
+      };
+      return {
+        ...prevState,
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }
+
+  // The function to clear a task from a selected project
+  function handleDeleteTask() {}
 
   // Function for updating state with 'selectedProjectId' set to the id
   // of the project that user selected/clicked on the <ProjectSidebar>.
@@ -115,8 +138,12 @@ function App() {
     <SelectedProject
       project={selectedProject}
       onDeleteProject={handleDeleteProject}
+      onAddTask={handleAddTask}
+      onDeleteTask={handleDeleteTask}
     />
   );
+
+  console.log(projectsState.tasks);
 
   // Render <NewProject> component if user click 'Add new project' button
   if (projectsState.selectedProjectId === null) {
