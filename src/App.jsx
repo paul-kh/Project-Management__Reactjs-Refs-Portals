@@ -151,8 +151,6 @@ function App() {
     />
   );
 
-  console.log(projectsState.tasks);
-
   // Render <NewProject> component if user click 'Add new project' button
   if (projectsState.selectedProjectId === null) {
     content = (
