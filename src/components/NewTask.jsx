@@ -7,6 +7,13 @@ export default function NewTask({ onAdd, onDelete }) {
     setEnteredTask(event.target.value);
   }
 
+  function handleClick() {
+    // send user input as task to <App> component
+    onAdd(enteredTask);
+    // clear user input box
+    setEnteredTask("");
+  }
+
   return (
     <div className="flex items-center gap-4">
       <input
@@ -17,7 +24,7 @@ export default function NewTask({ onAdd, onDelete }) {
       />
       <button
         className="text-stone-700 hover:text-stone-950"
-        onClick={() => onAdd({ text: enteredTask })}
+        onClick={handleClick}
       >
         Add Task
       </button>

@@ -35,15 +35,15 @@ function App() {
   });
 
   // The function to add tasks to a selected project
-  function handleAddTask(tasksData) {
-    if (tasksData.text.trim() === "") {
+  function handleAddTask(taskText) {
+    if (taskText.trim() === "") {
       return;
     }
 
     setProjectsState((prevState) => {
       const newTask = {
-        ...tasksData,
         id: Math.random(),
+        text: taskText,
         projectId: prevState.selectedProjectId,
       };
       return {
