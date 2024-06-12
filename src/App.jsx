@@ -13,6 +13,21 @@ function App() {
     - projectsState.selectedProjectId = null      ==> if user started adding new project 
   *************************************************************************************/
 
+  /* Data modeling of the 'projectsState' object that we are defining as the state in this app:
+      projectsState: {
+        selectedProjectId: 123,
+        projects: [
+                    { id: 1, title: “project 1”, description: “description 1”, dueDate: “today” },
+                    { id: 2, title: “project 2”, description: “description 2”, dueDate: “tomorrow” },
+                    ...
+                  ]
+        tasks:    [
+                    {id: 1, text: "Task 1", projectId: 1},
+                    {id: 2, text: "Task 2", projectId: 1},
+                    ...
+                  ]
+      }
+*/
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
