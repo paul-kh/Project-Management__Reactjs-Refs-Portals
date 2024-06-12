@@ -54,7 +54,14 @@ function App() {
   }
 
   // The function to clear a task from a selected project
-  function handleDeleteTask() {}
+  function handleDeleteTask(id) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== id),
+      };
+    });
+  }
 
   // Function for updating state with 'selectedProjectId' set to the id
   // of the project that user selected/clicked on the <ProjectSidebar>.
@@ -165,6 +172,7 @@ function App() {
         onStartAddProject={handleStartAddProject}
         onSelectProject={handleSelectProject}
         projects={projectsState.projects}
+        seletedProjectId={projectsState.selectedProjectId}
       />
       {content}
     </main>
