@@ -2,7 +2,7 @@
 
 The app is a basic project management tool that allows user to create projects then add tasks to each project. User can select an existing project to show all its tasks. User can also delete tasks and projects as well.
 
-- Live site: https://project-mgmnt-reactjs.web.app/
+- Live site (hosted with Firebase): https://project-mgmnt-reactjs-7c015.web.app/
 
 ![app homepage](./src/assets/app-home-page.png)
 <br>
